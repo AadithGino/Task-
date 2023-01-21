@@ -11,6 +11,7 @@ dotenv.config();
 
 const adminLoginRouter = require("./routes/Admin/adminLogin");
 const adminAddEmployeeRouter = require("./routes/Admin/adminAddEmployee");
+const adminHomeRouter = require("./routes/Admin/adminHomeRoute");
 
 const app = express();
 
@@ -22,10 +23,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", adminLoginRouter);
 app.use("/", adminAddEmployeeRouter);
+app.use("/",adminHomeRouter);
 
+// connecting database
 
-// connecting database;
-// mongoose.connect(process.env.MONGOOSE_URL);
 mongoose.connect('mongodb+srv://aadithGino:9744052977@cluster0.yw3rutb.mongodb.net/?retryWrites=true&w=majority');
 
 
