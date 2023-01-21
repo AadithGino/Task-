@@ -7,7 +7,7 @@ const adminLoginAndSignupController = require("../../controller/Admin/loginContr
 router.post("/signup", adminLoginAndSignupController.adminSignup);
 
 //admin Login 
-router.post("/login",adminLoginAndSignupController)
+router.post("/login",adminLoginAndSignupController.adminLogin)
 
 
 module.exports = router;

@@ -13,7 +13,8 @@ exports.adminSignup = async (req, res) => {
   };
   try {
     adminSchema.findOne({ userName: userName }).then((result) => {
-      if (result) {
+      console.log(result);
+      if (result==null) {
         adminSchema.create(details).then((data) => {
           res.status(200).json(data);
         });
@@ -41,7 +42,7 @@ exports.adminLogin = async (req, res) => {
               let details = {
                 _id: result._id,
                 userName,
-                token: generateToken(result._id),
+                // token: generateToken(result._id),
               };
               res.status(200).json(details);
             } else {

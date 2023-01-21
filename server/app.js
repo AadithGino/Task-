@@ -10,7 +10,7 @@ const mongoose = require("mongoose")
 dotenv.config();
 
 const adminLoginRouter = require("./routes/Admin/adminLogin");
-// const usersRouter = require("./routes/users");
+const adminAddEmployeeRouter = require("./routes/Admin/adminAddEmployee");
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", adminLoginRouter);
-// app.use("/users", usersRouter);
+app.use("/", adminAddEmployeeRouter);
 
 
 // connecting database;
