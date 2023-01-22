@@ -59,6 +59,7 @@ function EditEmployee({ match }) {
   const [designation, setDesignation] = useState();
   const [course, setCourse] = useState();
   const [img, setImage] = useState();
+  const [newImage,setnewImage]=useState(false);
 
   const handleimageSelect = () => {
     inputRef.current.click();
@@ -134,6 +135,7 @@ function EditEmployee({ match }) {
         <input
           onChange={(e) => {
             setImage(e.target.files[0]);
+            setnewImage(e.target.files[0])
           }}
           ref={inputRef}
           type="file"
@@ -165,7 +167,7 @@ function EditEmployee({ match }) {
               <FormLabel>User Profile</FormLabel>
               <Stack direction={["column", "row"]} spacing={6}>
                 <Center>
-                  <Avatar size="xl" src={img}>
+                  <Avatar size="xl" src={newImage?URL.createObjectURL(newImage):img}>
                     <AvatarBadge
                       as={IconButton}
                       size="sm"
@@ -229,7 +231,7 @@ function EditEmployee({ match }) {
             <FormControl id="password">
               <FormLabel>Mobile</FormLabel>
               <Input
-                {...register("Mobile", { minLength: 10, required: true })}
+                {...register("Mobile", { minLength: 10,maxLength:10 ,required: true })}
                 defaultValue={Mobile}
                 onChange={(e) => setMobile(e.target.value)}
                 placeholder="Number"

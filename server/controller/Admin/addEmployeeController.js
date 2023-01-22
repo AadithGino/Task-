@@ -106,7 +106,7 @@ exports.deleteEmployee = async (req, res) => {
 
   try {
     employeeSchema.deleteOne({ _id: id }).then((data) => {
-      res.status(200).json("Employee Deleted Successfully");
+      res.status(200).json("Employee Deleted Successfully"+id);
     });
   } catch (error) {
     res.status(400).json(error);

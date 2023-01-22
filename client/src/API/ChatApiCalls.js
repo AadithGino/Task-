@@ -6,6 +6,7 @@ console.log(token.token);
 const config = {
   headers: {
     Authorization: "Bearer " + token?.token,
+    
     "Content-type": "application/json",
   },
 };

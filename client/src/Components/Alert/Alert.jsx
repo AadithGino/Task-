@@ -20,10 +20,10 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  adminGetEmployeesAction,
+  clearDelete,
   deleteEmployeeAction,
 } from "../../REDUX/Actions/adminAction";
-import { useEffect } from "react";
+
 
 function AlertDelete({ employee, setdeleteSuccessMsg}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,6 +39,7 @@ function AlertDelete({ employee, setdeleteSuccessMsg}) {
 
   if(deleteData){
     setdeleteSuccessMsg(deleteData)
+    dispatch(clearDelete())
   }
 
   return (

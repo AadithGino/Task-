@@ -195,7 +195,7 @@ function AddEmployee({ setaddSuccessMsg }) {
             <FormControl id="password">
               <FormLabel>Mobile</FormLabel>
               <Input
-                {...register("Mobile", { minLength: 10, required: true })}
+                {...register("Mobile", { minLength: 10, maxLength:10,required: true })}
                 onChange={(e) => setMobile(e.target.value)}
                 placeholder="Number"
                 _placeholder={{ color: "gray.500" }}

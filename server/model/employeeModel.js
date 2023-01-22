@@ -1,6 +1,6 @@
 const mognoose = require("mongoose");
 const moment = require("moment");
-
+let date = moment().format("L");
 const employeeSchema = mognoose.Schema({
   Name: { type: String },
   Email: { type: String },
@@ -9,7 +9,7 @@ const employeeSchema = mognoose.Schema({
   Gender: { type: String },
   Course: { type: String },
   Image: { type: String },
-  Date: { type: Date, default: moment().format('L')},
+  Date: { type: Date, default: date },
 });
 
 const model = mognoose.model("Employee", employeeSchema);
