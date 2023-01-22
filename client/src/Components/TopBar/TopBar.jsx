@@ -5,9 +5,12 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Logout } from "../../REDUX/Actions/adminAction";
 
 function TopBar() {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   return (
     <div>
@@ -21,8 +24,8 @@ function TopBar() {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link onClick={() => navigate("/home")}>Home</Nav.Link>
-              <Nav.Link href="/user-management">User Management</Nav.Link>
+              <Nav.Link onClick={() => navigate("/")}>Home</Nav.Link>
+              <Nav.Link  onClick={() => navigate("/user-management")}>User Management</Nav.Link>
               <Nav.Link
                 onClick={() => {
                   navigate("/add-employee");
@@ -32,7 +35,9 @@ function TopBar() {
               </Nav.Link>
             </Nav>
 
-            <Nav.Link href="#action1">Logout</Nav.Link>
+            <Nav.Link onClick={()=>{
+              dispatch(Logout())
+            }}>Logout</Nav.Link>
           </Navbar.Collapse>
         </Container>
       </Navbar>

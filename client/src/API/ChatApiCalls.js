@@ -1,13 +1,17 @@
 import axios from "axios";
 
 const API = axios.create({ baseURL: "http://localhost:5000" });
+const token = JSON.parse(localStorage.getItem("adminInfo"));
+console.log(token.token);
 const config = {
   headers: {
+    Authorization: "Bearer " + token?.token,
     "Content-type": "application/json",
   },
 };
 
-export const adminGetEmployees = (page, sort) => API.post("/get-employees",{page,sort},config);
+export const adminGetEmployees = (page, sort) =>
+  API.post("/get-employees", { page, sort }, config);
 
 export const adminAddEmployee = (
   Name,
@@ -27,9 +31,9 @@ export const adminAddEmployee = (
 export const adminLogin = (userName, password) =>
   API.post("/login", { userName, password }, config);
 
-export const getSingleEmployee = (id) => API.get("/single-employee?id=" + id);
+export const getSingleEmployee = (id) => API.get("/single-employee?id=" + id,config);
 
-export const deleteEmployee = (id) => API.get("/delete-employee?id=" + id);
+export const deleteEmployee = (id) => API.get("/delete-employee?id=" + id,config);
 
 export const editEmployee = (
   Name,
@@ -51,10 +55,9 @@ export const editEmployee = (
       Gender,
       Course,
       Image,
-      id
+      id,
     },
     config
   );
 
-  
-  export const Search = (search) => API.get("/search?search="+search)
+export const Search = (search) => API.get("/search?search=" + search,config);

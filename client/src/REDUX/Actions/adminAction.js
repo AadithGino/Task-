@@ -22,7 +22,11 @@ import {
   ADMIN_LOGIN_FAIL,
   ADMIN_LOGIN_REQUEST,
   ADMIN_LOGIN_SUCCESS,
+  ADMIN_LOGOUT,
   ADMIN_UPDATE_USERS_LIST,
+  CLEAR_ADD,
+  CLEAR_DELETE,
+  CLEAR_EDIT,
   GET_SINGLE_EMPLOYEE_FAIL,
   GET_SINGLE_EMPLOYEE_REQUEST,
   GET_SINGLE_EMPLOYEE_SUCCESS,
@@ -67,7 +71,7 @@ export const adminGetEmployeesAction = (page, sort) => async (dispatch) => {
 export const adminAddEmployeeAction =
   (Name, Email, Mobile, Designation, Gender, Course, Image) =>
   async (dispatch) => {
-    console.log(Mobile);
+    console.log(Image);
     try {
       dispatch({ type: ADMIN_ADD_EMPLOYEE_REQUEST });
 
@@ -149,4 +153,21 @@ export const searchAction = (searchKeyword) => async (dispatch) => {
     const { data } = await Search(searchKeyword);
     dispatch({ type: ADMIN_UPDATE_USERS_LIST, payload: data });
   } catch (error) {}
+};
+
+export const Logout = () => async (dispatch) => {
+  localStorage.removeItem("adminInfo");
+  dispatch({ type: ADMIN_LOGOUT });
+};
+
+export const clearEdit = () => async (dispatch) => {
+  dispatch({ type: CLEAR_EDIT });
+};
+
+export const clearAdd = () => async (dispatch) => {
+  dispatch({ type: CLEAR_ADD });
+};
+
+export const clearDelete = () => async (dispatch) => {
+  dispatch({ type: CLEAR_DELETE });
 };

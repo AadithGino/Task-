@@ -1,5 +1,6 @@
 const adminSchema = require("../../model/adminModel");
 const bcrypt = require("bcrypt");
+const generateToken = require("../../JWT/generateToken");
 
 
 // admin Signup
@@ -42,7 +43,7 @@ exports.adminLogin = async (req, res) => {
               let details = {
                 _id: result._id,
                 userName,
-                // token: generateToken(result._id),
+                token: generateToken(result._id),
               };
               res.status(200).json(details);
             } else {

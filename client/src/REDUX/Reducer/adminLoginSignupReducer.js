@@ -14,7 +14,11 @@ import {
   ADMIN_LOGIN_FAIL,
   ADMIN_LOGIN_REQUEST,
   ADMIN_LOGIN_SUCCESS,
+  ADMIN_LOGOUT,
   ADMIN_UPDATE_USERS_LIST,
+  CLEAR_ADD,
+  CLEAR_DELETE,
+  CLEAR_EDIT,
   GET_SINGLE_EMPLOYEE_FAIL,
   GET_SINGLE_EMPLOYEE_REQUEST,
   GET_SINGLE_EMPLOYEE_SUCCESS,
@@ -30,6 +34,9 @@ export const adminLoginReducer = (state = {}, action) => {
 
     case ADMIN_LOGIN_FAIL:
       return { loading: false, error: action.payload };
+
+    case ADMIN_LOGOUT:
+      return { adminData: false };
     default:
       return state;
   }
@@ -47,7 +54,7 @@ export const adminGetUserDetailsReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
 
     case ADMIN_UPDATE_USERS_LIST:
-      return {employeeList:action.payload}
+      return { employeeList: action.payload };
     default:
       return state;
   }
@@ -63,6 +70,9 @@ export const adminAddEmployeeReducer = (state = {}, action) => {
 
     case ADMIN_ADD_EMPLOYEE_FAIL:
       return { addloading: false, addError: action.payload };
+
+    case CLEAR_ADD:
+    return {addData:false}
     default:
       return state;
   }
@@ -96,6 +106,9 @@ export const adminDeleteReducer = (state = {}, action) => {
 
     case ADMIN_DELETE_EMPLOYEE_FAIL:
       return { deleteloading: false, deleteError: action.payload };
+
+    case CLEAR_DELETE:
+      return{deleteData:false}
     default:
       return state;
   }
@@ -111,6 +124,9 @@ export const editEmployeeReduecr = (state = {}, action) => {
 
     case ADMIN_EDIT_EMPLOYEE_FAIL:
       return { editLoading: false, editError: action.payload };
+
+    case CLEAR_EDIT:
+      return{editData:false}
     default:
       return state;
   }

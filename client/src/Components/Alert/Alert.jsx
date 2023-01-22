@@ -25,7 +25,7 @@ import {
 } from "../../REDUX/Actions/adminAction";
 import { useEffect } from "react";
 
-function AlertDelete({ employee, }) {
+function AlertDelete({ employee, setdeleteSuccessMsg}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const cancelRef = React.useRef();
@@ -36,6 +36,10 @@ function AlertDelete({ employee, }) {
   const Delete = () => {
     dispatch(deleteEmployeeAction(employee._id));
   };
+
+  if(deleteData){
+    setdeleteSuccessMsg(deleteData)
+  }
 
   return (
     <>

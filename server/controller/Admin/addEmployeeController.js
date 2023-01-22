@@ -10,7 +10,8 @@ exports.addEmployee = async (req, res) => {
   const Gender = req.body.Gender;
   const Course = req.body.Course;
   const Image = req.body.Image;
-  console.log(Mobile);
+  console.log(Image);
+
   try {
     const details = {
       Name,
@@ -71,32 +72,31 @@ exports.editEmployee = async (req, res) => {
   };
 
   try {
-    const employee =await employeeSchema.findOne({_id:id});
-    
     let employeeEmail;
-    let employeeMobile;
-    
-    if(employee.Email!=Email){
-      console.log(Email+employee.email);
-      employeeEmail = await employeeSchema.findOne({Email:Email})
-    }
-    if(employee.Mobile!=Mobile){
-      employeeMobile= await employee.findOne({Mobile:Mobile})
+    let employeeNumber;
+    let employee = await employeeSchema.findOne({ _id: id });
+
+    if (employee.Email != Email) {
+      employeeEmail = await employeeSchema.findOne({ Email: Email });
     }
 
-    if(employeeEmail || employeeMobile){
-      res.status(400).json("Email OR Number Already Exists");
+    if (employee.Mobile != Mobile) {
+      employeeNumber = await employeeSchema.findOne({ Mobile: Mobile });
     }
-      else{
+
+    if (employeeEmail) {
+      res.status(400).json("EMAIL ALREADY EXISTS");
+      console.log("EMAIL EXISTS");
+    } else if (employeeNumber) {
+      res.status(400).json("NUMBER ALREADY EXISTS");
+      console.log("NUMBER EXISTS");
+    } else {
       employeeSchema.updateOne({_id:id},{$set:details}).then((data)=>{
-        res.status(200).json("EDITED SUCCESSFULLy")
+        res.status(200).json("UPDATED SUCCESSFULLY")
+        console.log("OK!!");
       })
-      
-  }
-    
-  } catch (error) {
-    res.status(400).json(error);
-  }
+    }
+  } catch (error) {}
 };
 
 // delete Employee
@@ -112,21 +112,6 @@ exports.deleteEmployee = async (req, res) => {
     res.status(400).json(error);
   }
 };
-
-// get single employee details
-
-// exports.getSingleEmployee = async (req, res) => {
-//   const id = req.query.id;
-//   console.log(id);
-//   try {
-//     employeeSchema.findOne({ _id: id }).then((data) => {
-//       res.status(200).json(data);
-//       console.log(data);
-//     });
-//   } catch (error) {
-//     // res.status(400).json(error);
-//   }
-// };
 
 exports.getSingleEmployee = async (req, res) => {
   const id = req.query.id;

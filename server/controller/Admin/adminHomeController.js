@@ -14,10 +14,11 @@ exports.getAllEmployees = async (req, res) => {
     page = req.body.page;
   }
   try {
+    const count = await employeeSchema.count()
     if (sort === false) {
       employeeSchema
         .find()
-        .limit(5)
+        // .limit(5)
         .skip((page - 1) * 5)
         .then((data) => {
           res.status(200).json(data);
@@ -39,6 +40,15 @@ exports.getAllEmployees = async (req, res) => {
         .limit(5)
         .skip((page - 1) * 5)
         .sort({ Mobile: 1 })
+        .then((data) => {
+          res.status(200).json(data);
+        });
+    }else if(sort === "Name"){
+      employeeSchema
+        .find()
+        .limit(5)
+        .skip((page - 1) * 5)
+        .sort({ Name: 1 })
         .then((data) => {
           res.status(200).json(data);
         });

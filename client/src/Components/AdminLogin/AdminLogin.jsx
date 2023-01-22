@@ -17,7 +17,7 @@ import {
   InputRightElement,
   Spinner,
   Alert,
-  AlertIcon
+  AlertIcon,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,19 +30,14 @@ function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const {register, handleSubmit, watch, formState: { errors }} = useForm()
   const handleShowClick = (e) => setShowPassword(!showPassword);
 
   const loginData = useSelector((state) => state.adminLoginReducer);
   const { adminData, loading, error } = loginData;
 
   const handlesubmit = (e) => {
-    e.preventDefault();
+    
     dispatch(adminLoginAction(userName, password));
   };
 
@@ -50,7 +45,6 @@ function AdminLogin() {
   if (adminData) {
     // navigate("/home");
     console.log(adminData);
-    
   }
   return (
     <Flex
@@ -69,16 +63,18 @@ function AdminLogin() {
       >
         <Avatar bg="teal.500" />
         <Heading color="teal.400">Welcome</Heading>
-       {
-        error?  <Alert status='error'>
-        <AlertIcon />
-        {error}
-      </Alert> :''
-       }
+        {error ? (
+          <Alert status="error">
+            <AlertIcon />
+            {error}
+          </Alert>
+        ) : (
+          ""
+        )}
         <Box minW={{ base: "90%", md: "468px" }}>
           <form
             onSubmit={handleSubmit((data) => {
-              console.log(data);
+              handlesubmit()
             })}
           >
             <Stack
@@ -94,12 +90,14 @@ function AdminLogin() {
                     // children={<CFaUserAlt color="gray.300" />}
                   />
                   <Input
-                    {...register("UserName")}
+                     {...register("UserName", { required: true})}
                     onChange={(e) => setUserName(e.target.value)}
                     type="text"
+                    name="UserName"
                     placeholder="UserName"
                   />
                 </InputGroup>
+                {errors.UserName && <span style={{color:"red"}}>Enter A Valid UserName</span>}
               </FormControl>
               <FormControl>
                 <InputGroup>
@@ -108,7 +106,9 @@ function AdminLogin() {
                     color="gray.300"
                     // children={<CFaLock color="gray.300" />}
                   />
+                   
                   <Input
+                     {...register("Password", { required: true})}
                     type={showPassword ? "text" : "password"}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
@@ -119,18 +119,19 @@ function AdminLogin() {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
+                {errors.Password && <span style={{color:"red"}}>Enter A Valid Password</span>}
               </FormControl>
               <Button
                 borderRadius={0}
                 type="submit"
                 onClick={(e) => {
-                  handlesubmit(e);
+                  // handlesubmit(e);
                 }}
                 variant="solid"
                 colorScheme="teal"
                 width="full"
               >
-                {loading? <Spinner/> :'Login'}
+                {loading ? <Spinner /> : "Login"}
               </Button>
             </Stack>
           </form>
