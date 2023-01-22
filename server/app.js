@@ -6,7 +6,7 @@ const logger = require("morgan");
 const session = require("express-session");
 const { v4: uuidv4 } = require("uuid");
 const dotenv = require("dotenv");
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 dotenv.config();
 
 const adminLoginRouter = require("./routes/Admin/adminLogin");
@@ -20,15 +20,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+const cors = require("cors");
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 
+app.use(cors(corsOptions));
 app.use("/", adminLoginRouter);
 app.use("/", adminAddEmployeeRouter);
-app.use("/",adminHomeRouter);
+app.use("/", adminHomeRouter);
 
-// connecting database
 
-mongoose.connect('mongodb+srv://aadithGino:9744052977@cluster0.yw3rutb.mongodb.net/?retryWrites=true&w=majority');
-
+mongoose.connect(
+  "mongodb+srv://aadithGino:9744052977@cluster0.yw3rutb.mongodb.net/?retryWrites=true&w=majority"
+);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

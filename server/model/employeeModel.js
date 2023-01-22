@@ -4,7 +4,7 @@ const moment = require("moment");
 const employeeSchema = mognoose.Schema({
   Name: { type: String },
   Email: { type: String },
-  Mobile: { type: Number, unique: true },
+  Mobile: { type: Number },
   Designation: { type: String },
   Gender: { type: String },
   Course: { type: String },
