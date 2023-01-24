@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API = axios.create({ baseURL: "http://localhost:5000" });
 const token = JSON.parse(localStorage.getItem("adminInfo"));
-console.log(token.token);
+
 const config = {
   headers: {
     Authorization: "Bearer " + token?.token,
