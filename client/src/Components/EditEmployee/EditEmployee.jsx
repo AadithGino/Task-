@@ -20,6 +20,8 @@ import {
   Spinner,
   Alert,
   AlertIcon,
+  AlertDescription,
+  AlertTitle
 } from "@chakra-ui/react";
 import TopBar from "../TopBar/TopBar";
 import { useState } from "react";
@@ -60,6 +62,7 @@ function EditEmployee({ match }) {
   const [course, setCourse] = useState();
   const [img, setImage] = useState();
   const [newImage,setnewImage]=useState(false);
+  const [typeError,setTypeError]=useState(false);
 
   const handleimageSelect = () => {
     inputRef.current.click();
@@ -134,8 +137,18 @@ function EditEmployee({ match }) {
       >
         <input
           onChange={(e) => {
-            setImage(e.target.files[0]);
-            setnewImage(e.target.files[0])
+            if (
+              e.target.files[0].type == "image/jpeg" ||
+              e.target.files[0].type == "image/png"
+            ){
+              setImage(e.target.files[0]);
+              setnewImage(e.target.files[0])
+              setTypeError(false);
+            }else{
+              setTypeError(true);
+              console.log(typeError);
+            }
+           
           }}
           ref={inputRef}
           type="file"
@@ -165,6 +178,14 @@ function EditEmployee({ match }) {
             </Heading>
             <FormControl id="userName">
               <FormLabel>User Profile</FormLabel>
+              <FormLabel>User Profile</FormLabel>
+              {
+                typeError?<Alert status='error'>
+                <AlertIcon />
+                <AlertTitle>Image Type Not Supported</AlertTitle>
+                <AlertDescription>Select Only JPG/PNG Images</AlertDescription>
+              </Alert>:''
+              }
               <Stack direction={["column", "row"]} spacing={6}>
                 <Center>
                   <Avatar size="xl" src={newImage?URL.createObjectURL(newImage):img}>

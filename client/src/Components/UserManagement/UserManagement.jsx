@@ -11,7 +11,7 @@ import TopBar from "../TopBar/TopBar";
 import AlertDelete from "../Alert/Alert";
 import { Alert } from "@chakra-ui/react";
 import AddEmployee from "../AddEmployee/AddEmployee";
-import { Pagination } from "react-bootstrap";
+import Pagination  from "../Pagination/Pagination";
 
 function UserManagement() {
   const navigate = useNavigate();
@@ -38,6 +38,11 @@ function UserManagement() {
   const currentUsers = employeeList?employeeList.slice(indexOfFirstUser,indexOflastUser) :''
 
   console.log(employeeData);
+  
+  const setPage = (n)=>{
+    setCurrentPage(n)
+    console.log(n);
+  }
   return (
     <div>
       <TopBar />
