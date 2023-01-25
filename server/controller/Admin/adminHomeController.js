@@ -37,16 +37,16 @@ exports.getAllEmployees = async (req, res) => {
       console.log("DATE SORT");
       employeeSchema
         .find()
-        .limit(5)
+        // .limit(5)
         .skip((page - 1) * 5)
-        .sort({ Mobile: 1 })
+        .sort({ Date: 1 })
         .then((data) => {
           res.status(200).json(data);
         });
     }else if(sort === "Name"){
       employeeSchema
         .find()
-        .limit(5)
+        // .limit(5)
         .skip((page - 1) * 5)
         .sort({ Name: 1 })
         .then((data) => {

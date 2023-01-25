@@ -11,6 +11,7 @@ import TopBar from "../TopBar/TopBar";
 import AlertDelete from "../Alert/Alert";
 import { Alert } from "@chakra-ui/react";
 import AddEmployee from "../AddEmployee/AddEmployee";
+import { Pagination } from "react-bootstrap";
 
 function UserManagement() {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ function UserManagement() {
   const [search, setSearch] = useState();
   const [addSuccessMsg, setaddSuccessMsg] = useState(false);
   const diplayNone = false;
+  const [currentPage,setCurrentPage]=useState(1);
+  const [usersPerPage,setUsersPerPage]=useState(5);
 
   const employeeData = useSelector((state) => state.employeeDataReducer);
   const employeeAdd = useSelector(
@@ -30,6 +33,9 @@ function UserManagement() {
   }, [deleteSuccessMsg, employeeAdd]);
 
   const { employeeList, error, loading } = employeeData;
+  const indexOflastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOflastUser -  usersPerPage;
+  const currentUsers = employeeList?employeeList.slice(indexOfFirstUser,indexOflastUser) :''
 
   console.log(employeeData);
   return (
@@ -93,11 +99,11 @@ function UserManagement() {
               </tr>
             </thead>
             <tbody>
-              {employeeList ? (
-                employeeList.length === 0 ? (
+              {currentUsers ? (
+                currentUsers.length === 0 ? (
                   <Alert>NO EMPLOYEES</Alert>
                 ) : (
-                  employeeList.map((m, i) => {
+                  currentUsers.map((m, i) => {
                     return (
                       <tr>
                         <td>{i + 1}</td>
@@ -140,6 +146,7 @@ function UserManagement() {
               )}
             </tbody>
           </table>
+          <Pagination usersPerPage={usersPerPage} totalUsers={employeeList?employeeList.length:''} setPage={setPage}/>
           
         </div>
       </div>

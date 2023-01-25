@@ -20,6 +20,8 @@ import {
   Spinner,
   Alert,
   AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import TopBar from "../TopBar/TopBar";
 import { useState } from "react";
@@ -43,6 +45,7 @@ function AddEmployee({ setaddSuccessMsg }) {
   const [designation, setDesignation] = useState();
   const [course, setCourse] = useState();
   const [img, setImage] = useState();
+  const [typeError,setTypeError]=useState(false);
   
   const {
     register,
@@ -102,7 +105,16 @@ function AddEmployee({ setaddSuccessMsg }) {
       >
         <input
           onChange={(e) => {
-            setImage(e.target.files[0]);
+            if (
+              e.target.files[0].type == "image/jpeg" ||
+              e.target.files[0].type == "image/png"
+            ){
+              setImage(e.target.files[0]);
+              setTypeError(false);
+            }else{
+              setTypeError(true);
+              console.log(typeError);
+            }
           }}
           ref={inputRef}
           type="file"
@@ -132,6 +144,13 @@ function AddEmployee({ setaddSuccessMsg }) {
             </Heading>
             <FormControl id="userName">
               <FormLabel>User Profile</FormLabel>
+              {
+                typeError?<Alert status='error'>
+                <AlertIcon />
+                <AlertTitle>Image Type Not Supported</AlertTitle>
+                <AlertDescription>Select Only JPG/PNG Images</AlertDescription>
+              </Alert>:''
+              }
               <Stack direction={["column", "row"]} spacing={6}>
                 <Center>
                   <Avatar size="xl" src={img ? URL.createObjectURL(img) : ""}>
@@ -208,13 +227,13 @@ function AddEmployee({ setaddSuccessMsg }) {
             <FormControl id="password">
               <FormLabel>Gender</FormLabel>
               <RadioGroup
-                {...register("Gender", { required: true })}
+                
                 onChange={setGender}
                 value={gender}
               >
                 <Stack direction="row">
-                  <Radio value="Male">Male</Radio>
-                  <Radio value="Female">Female</Radio>
+                  <Radio {...register("Gender", { required: true })} value="Male">Male</Radio>
+                  <Radio {...register("Gender", { required: true })} value="Female">Female</Radio>
                 </Stack>
               </RadioGroup>
               {errors.Gender && (

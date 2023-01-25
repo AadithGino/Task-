@@ -245,13 +245,13 @@ function EditEmployee({ match }) {
             <FormControl id="password">
               <FormLabel>Gender</FormLabel>
               <RadioGroup
-                {...register("Gender", { required: true })}
+                
                 onChange={setGender}
                 value={gender}
               >
                 <Stack direction="row">
-                  <Radio value="Male">Male</Radio>
-                  <Radio value="Female">Female</Radio>
+                  <Radio {...register("Gender", { required: true })} value="Male">Male</Radio>
+                  <Radio {...register("Gender", { required: true })} value="Female">Female</Radio>
                 </Stack>
               </RadioGroup>
               {errors.Gender && (
